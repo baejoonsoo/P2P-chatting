@@ -6,16 +6,19 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     <link rel="shortcut icon" href="#">
     title Zoom clone
-    link(rel="stylesheet" href="https://unpkg.com/mvp.css")
+    link(rel="stylesheet" href='../public/css/style.css')
   body 
     header 
-      h1 Noom
+      h1 P2P chatting
     main
       div#welcome
         form
           input(placeholder='room name', required,type='text') 
           button Enter room
       div#call
-        
+        ul#chatList
+        form#chattingForm
+          input(type="text")
+          button send
     script(src="/socket.io/socket.io.js") 
     script(src="/public/js/app.js")
