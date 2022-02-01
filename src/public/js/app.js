@@ -1,6 +1,11 @@
 const socket = io();
 
 const call = document.querySelector('#call');
+const welcome = document.querySelector('#welcome');
+const welcomeForm = welcome.querySelector('form');
+
+const chatList = call.querySelector('#chatList');
+const chattingForm = call.querySelector('#chattingForm');
 
 call.hidden = true;
 
@@ -8,14 +13,32 @@ let roomName;
 let myPeerConnection;
 let myDataChannel;
 
-const welcome = document.querySelector('#welcome');
-const welcomeForm = welcome.querySelector('form');
-
 const initCall = async () => {
   welcome.hidden = true;
   call.hidden = false;
   makeConnection();
 };
+
+const makeMsg = (msg) => {
+  const li = document.createElement('li');
+  li.innerText = msg;
+  chatList.append(li);
+};
+
+const chatForm = (event) => {
+  event.preventDefault();
+
+  const input = chattingForm.querySelector('input');
+  makeMsg(`you : ${input.value}`);
+
+  if (myDataChannel) {
+    myDataChannel.send(input.value);
+  }
+
+  input.value = '';
+};
+
+chattingForm.addEventListener('submit', chatForm);
 
 const handleWelcomeSubmit = async (event) => {
   event.preventDefault();
@@ -30,9 +53,13 @@ welcomeForm.addEventListener('submit', handleWelcomeSubmit);
 
 //socket code
 
+const AnonMsg = (msg) => {
+  makeMsg(`Anon : ${msg.data}`);
+};
+
 socket.on('welcome', async () => {
   myDataChannel = myPeerConnection.createDataChannel('chat');
-  myDataChannel.addEventListener('message', (msg) => console.log(msg.data));
+  myDataChannel.addEventListener('message', AnonMsg);
   console.log('made data channel');
 
   const offer = await myPeerConnection.createOffer();
@@ -45,7 +72,7 @@ socket.on('offer', async (offer) => {
   console.log('received the offer');
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
-    myDataChannel.addEventListener('message', (msg) => console.log(msg.data));
+    myDataChannel.addEventListener('message', AnonMsg);
   });
 
   myPeerConnection.setRemoteDescription(offer);
