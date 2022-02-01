@@ -60,16 +60,13 @@ const AnonMsg = (msg) => {
 socket.on('welcome', async () => {
   myDataChannel = myPeerConnection.createDataChannel('chat');
   myDataChannel.addEventListener('message', AnonMsg);
-  console.log('made data channel');
 
   const offer = await myPeerConnection.createOffer();
   myPeerConnection.setLocalDescription(offer);
-  console.log('sent the offer');
   socket.emit('offer', offer, roomName);
 });
 
 socket.on('offer', async (offer) => {
-  console.log('received the offer');
   myPeerConnection.addEventListener('datachannel', (event) => {
     myDataChannel = event.channel;
     myDataChannel.addEventListener('message', AnonMsg);
@@ -79,16 +76,13 @@ socket.on('offer', async (offer) => {
   const answer = await myPeerConnection.createAnswer();
   myPeerConnection.setLocalDescription(answer);
   socket.emit('answer', answer, roomName);
-  console.log('sent the answer');
 });
 
 socket.on('answer', (answer) => {
-  console.log('received the answer');
   myPeerConnection.setRemoteDescription(answer);
 });
 
 socket.on('ice', (ice) => {
-  console.log('received candidate');
   myPeerConnection.addIceCandidate(ice);
 });
 
@@ -118,6 +112,5 @@ const handleAddStream = (data) => {
 };
 
 const handleIce = (data) => {
-  console.log('sent candidate');
   socket.emit('ice', data.candidate, roomName);
 };
