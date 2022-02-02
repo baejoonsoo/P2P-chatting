@@ -33,6 +33,7 @@
 }
 
 #chattingForm button img {
+  cursor: pointer;
   height: 30px;
 }
 
@@ -108,4 +109,5 @@
 
 #welcome form button img {
   height: 20px;
+  cursor: pointer;
 }
