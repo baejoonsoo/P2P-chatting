@@ -15,14 +15,32 @@ ul {
 }
 
 #chattingForm {
-  height: 70px;
-  background-color: aqua;
-  flex: 0 0 70px;
+  background-color: white;
+  flex: 0 0 60px;
+  display: flex;
+}
+
+#chattingForm input {
+  flex: 1 1 auto;
+  border: none;
+  font-size: 25px;
+  outline: none;
+  padding-left: 20px;
+}
+
+#chattingForm button {
+  flex: 0 0 80px;
+  background: none;
+  border: none;
+}
+
+#chattingForm button img {
+  height: 30px;
 }
 
 #chatList {
   flex-grow: 10;
-  background-color: blue;
+  /* background-color: blue; */
   flex: 1 1 auto;
   overflow: auto;
 }
