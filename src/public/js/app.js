@@ -20,18 +20,24 @@ const initCall = async () => {
   makeConnection();
 };
 
-const makeMsg = (msg) => {
-  const li = document.createElement('li');
-  li.innerText = msg;
-  chatList.append(li);
-  chatList.scrollTop = chatList.scrollHeight;
+const makeMsg = (msg, isMe) => {
+  if (msg) {
+    const writer = isMe ? 'myMsg' : 'anonMsg';
+    const li = document.createElement('li');
+    li.id = writer;
+    const msgBox = document.createElement('div');
+    li.append(msgBox);
+    msgBox.innerText = msg;
+    chatList.append(li);
+    chatList.scrollTop = chatList.scrollHeight;
+  }
 };
 
 const chatForm = (event) => {
   event.preventDefault();
 
   const input = chattingForm.querySelector('input');
-  makeMsg(`you : ${input.value}`);
+  makeMsg(input.value, true);
 
   if (myDataChannel) {
     myDataChannel.send(input.value);
@@ -56,7 +62,7 @@ welcomeForm.addEventListener('submit', handleWelcomeSubmit);
 //socket code
 
 const AnonMsg = (msg) => {
-  makeMsg(`Anon : ${msg.data}`);
+  makeMsg(msg.data, false);
 };
 
 socket.on('welcome', async () => {

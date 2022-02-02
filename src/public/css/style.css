@@ -3,12 +3,8 @@
   padding: 0;
 }
 
-ul {
-  list-style: none;
-}
-
 #call {
-  background-color: #faebd7;
+  background-color: #aee1ff;
   height: 100vh;
   display: none;
   flex-direction: column;
@@ -39,8 +35,38 @@ ul {
 }
 
 #chatList {
+  list-style: none;
   flex-grow: 10;
-  /* background-color: blue; */
   flex: 1 1 auto;
   overflow: auto;
+  padding: 20px;
+}
+
+#myMsg,
+#anonMsg {
+  padding-bottom: 10px;
+  display: flex;
+}
+
+#myMsg div,
+#anonMsg div {
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 500px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+#myMsg {
+  flex-direction: row-reverse;
+}
+#myMsg div {
+  background-color: white;
+}
+
+#anonMsg {
+  flex-direction: row;
+}
+#anonMsg div {
+  background-color: rgb(255, 244, 94);
 }
