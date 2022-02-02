@@ -1,3 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 ul {
   list-style: none;
+}
+
+#call {
+  background-color: #faebd7;
+  height: 100vh;
+  display: none;
+  flex-direction: column;
+}
+
+#chattingForm {
+  height: 70px;
+  background-color: aqua;
+  flex: 0 0 70px;
+}
+
+#chatList {
+  flex-grow: 10;
+  background-color: blue;
+  flex: 1 1 auto;
+  overflow: auto;
 }

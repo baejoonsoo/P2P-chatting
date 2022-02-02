@@ -16,6 +16,7 @@ let myDataChannel;
 const initCall = async () => {
   welcome.hidden = true;
   call.hidden = false;
+  call.style.display = 'flex';
   makeConnection();
 };
 
@@ -23,6 +24,7 @@ const makeMsg = (msg) => {
   const li = document.createElement('li');
   li.innerText = msg;
   chatList.append(li);
+  chatList.scrollTop = chatList.scrollHeight;
 };
 
 const chatForm = (event) => {
